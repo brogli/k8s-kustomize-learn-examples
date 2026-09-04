@@ -18,5 +18,3 @@ This way you can enter in the step you're familiar with and then learn how it tr
 
 Everything runs on your local machine: Podman (or Docker) and Compose for steps 1–2,
 [k3s](https://k3s.io/) for step 3 onward.
-
-More steps follow.
