@@ -8,7 +8,7 @@ differences on top:
 |--------------|---------------------------|----------------------|
 | namespace    | `nginx-staging`           | `nginx-prod`         |
 | replicas     | 1                         | 3                    |
-| ingress host | `staging.nginx-demo.locl` | `nginx-demo.locl`    |
+| ingress host | `nginx.staging.k8s-demo.locl` | `nginx.prod.k8s-demo.locl`    |
 | content      | `overlays/staging/site`   | `overlays/prod/site` |
 | memory limit | 64Mi (base)               | 128Mi                |
 
@@ -38,8 +38,8 @@ kubectl kustomize overlays/staging     # render — see what apply would send
 kubectl apply -k overlays/staging
 kubectl apply -k overlays/prod
 kubectl get pods -A -l app=nginx-demo
-curl -s http://staging.nginx-demo.locl/
-curl -s http://nginx-demo.locl/
+curl -s http://nginx.staging.k8s-demo.locl/
+curl -s http://nginx.prod.k8s-demo.locl/
 ```
 
 ## Clean up

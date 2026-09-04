@@ -22,8 +22,8 @@ root-apps/staging.yaml  →  argocd-apps/overlays/staging  →  workloads/nginx/
 
 | | staging | prod |
 | --- | --- | --- |
-| nginx | 1 replica, `staging.nginx-demo.locl`, ns `nginx-staging` | 3 replicas, `nginx-demo.locl`, ns `nginx-prod` |
-| whoami | 1 replica, `whoami.staging.nginx-demo.locl`, ns `whoami-staging` | 2 replicas, `whoami.nginx-demo.locl`, ns `whoami-prod` |
+| nginx | 1 replica, `nginx.staging.k8s-demo.locl`, ns `nginx-staging` | 3 replicas, `nginx.prod.k8s-demo.locl`, ns `nginx-prod` |
+| whoami | 1 replica, `whoami.staging.k8s-demo.locl`, ns `whoami-staging` | 2 replicas, `whoami.prod.k8s-demo.locl`, ns `whoami-prod` |
 
 Argo CD itself stays outside the tree: it is installed by hand as before, not managed by
 a root app.
@@ -33,13 +33,13 @@ a root app.
 ```bash
 kubectl create namespace argocd
 kubectl apply --server-side -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml   # server-side: a CRD is too big for client-side apply
-kubectl apply --server-side -f argocd/             # plain-HTTP UI + ingress on argocd.nginx-demo.locl
+kubectl apply --server-side -f argocd/             # plain-HTTP UI + ingress on argocd.k8s-demo.locl
 kubectl -n argocd get pods # watch them starting
 kubectl rollout restart -n argocd deployment/argocd-server
 kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d; echo
 ```
 
-Point `argocd.nginx-demo.locl` at your machine in your hosts file, then log in at <http://argocd.nginx-demo.locl/>
+Point `argocd.k8s-demo.locl` at your machine in your hosts file, then log in at <http://argocd.k8s-demo.locl/>
 as `admin` with that password.
 
 ## Setup
@@ -49,8 +49,8 @@ as `admin` with that password.
 for e in staging prod; do mkdir -p /tmp/nginx-demo/$e && cp -r workloads/nginx/overlays/$e/site /tmp/nginx-demo/$e/; done
 ```
 
-Point `staging.nginx-demo.locl` and `whoami.staging.nginx-demo.locl` (for prod: `nginx-demo.locl`,
-`whoami.nginx-demo.locl`) at your machine in your hosts file.
+Point `nginx.staging.k8s-demo.locl` and `whoami.staging.k8s-demo.locl` (for prod: `nginx.prod.k8s-demo.locl`,
+`whoami.prod.k8s-demo.locl`) at your machine in your hosts file.
 
 ## Deploy
 
@@ -61,8 +61,8 @@ kubectl kustomize argocd-apps/overlays/staging    # render what the root app wil
 kubectl apply -f root-apps/staging.yaml
 kubectl get applications -n argocd                # root-staging, nginx-demo-staging, whoami-staging — all Synced / Healthy
 kubectl get pods -A -l 'app in (nginx-demo, whoami)'
-curl -s http://staging.nginx-demo.locl/
-curl -s http://whoami.staging.nginx-demo.locl/    # Hostname: is the pod name
+curl -s http://nginx.staging.k8s-demo.locl/
+curl -s http://whoami.staging.k8s-demo.locl/    # Hostname: is the pod name
 ```
 
 ## Clean up

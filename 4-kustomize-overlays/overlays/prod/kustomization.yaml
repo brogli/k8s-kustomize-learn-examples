@@ -20,4 +20,4 @@ patches:
     patch: |-
       - op: add
         path: /spec/rules/0/host
-        value: nginx-demo.locl
+        value: nginx.prod.k8s-demo.locl
