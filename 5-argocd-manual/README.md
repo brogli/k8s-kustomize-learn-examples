@@ -8,13 +8,13 @@ pulls it from this repo on GitHub and applies it.
 ```bash
 kubectl create namespace argocd
 kubectl apply --server-side -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml   # server-side: a CRD is too big for client-side apply
-kubectl apply --server-side -f argocd/             # plain-HTTP UI + ingress on argocd.nginx-demo.locl
+kubectl apply --server-side -f argocd/             # plain-HTTP UI + ingress on argocd.k8s-demo.locl
 kubectl -n argocd get pods # watch them starting
 kubectl rollout restart -n argocd deployment/argocd-server
 kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d; echo
 ```
 
-Point `argocd.nginx-demo.locl` at your machine in your hosts file, then log in at <http://argocd.nginx-demo.locl/>
+Point `argocd.k8s-demo.locl` at your machine in your hosts file, then log in at <http://argocd.k8s-demo.locl/>
 as `admin` with that password.
 
 ## Setup
@@ -44,7 +44,7 @@ the resources missing. **Sync** → **Synchronize** applies them.
 
 ```bash
 kubectl get pods -l app=nginx-demo
-curl -s http://nginx-demo.locl/
+curl -s http://nginx.k8s-demo.locl/
 ```
 
 Now change something in the cluster by hand and watch Argo CD notice:

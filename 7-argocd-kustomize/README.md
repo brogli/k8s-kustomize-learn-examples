@@ -22,13 +22,13 @@ change three things:
 ```bash
 kubectl create namespace argocd
 kubectl apply --server-side -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml   # server-side: a CRD is too big for client-side apply
-kubectl apply --server-side -f argocd/             # plain-HTTP UI + ingress on argocd.nginx-demo.locl
+kubectl apply --server-side -f argocd/             # plain-HTTP UI + ingress on argocd.k8s-demo.locl
 kubectl -n argocd get pods # watch them starting
 kubectl rollout restart -n argocd deployment/argocd-server
 kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d; echo
 ```
 
-Point `argocd.nginx-demo.locl` at your machine in your hosts file, then log in at <http://argocd.nginx-demo.locl/>
+Point `argocd.k8s-demo.locl` at your machine in your hosts file, then log in at <http://argocd.k8s-demo.locl/>
 as `admin` with that password.
 
 ## Setup
@@ -38,7 +38,7 @@ as `admin` with that password.
 for e in staging prod; do mkdir -p /tmp/nginx-demo/$e && cp -r workloads/overlays/$e/site /tmp/nginx-demo/$e/; done
 ```
 
-Point `staging.nginx-demo.locl` and `nginx-demo.locl` at your machine in your hosts file.
+Point `nginx.staging.k8s-demo.locl` and `nginx.prod.k8s-demo.locl` at your machine in your hosts file.
 
 ## Deploy
 
@@ -49,8 +49,8 @@ kubectl apply -k argocd-apps/overlays/staging
 kubectl apply -k argocd-apps/overlays/prod
 kubectl get applications -n argocd                # two apps, Synced / Healthy
 kubectl get pods -A -l app=nginx-demo             # 1 + 3 pods
-curl -s http://staging.nginx-demo.locl/
-curl -s http://nginx-demo.locl/
+curl -s http://nginx.staging.k8s-demo.locl/
+curl -s http://nginx.prod.k8s-demo.locl/
 ```
 
 ## Clean up

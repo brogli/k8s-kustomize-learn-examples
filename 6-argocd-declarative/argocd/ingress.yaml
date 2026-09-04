@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   rules:
-    - host: argocd.nginx-demo.locl
+    - host: argocd.k8s-demo.locl
       http:
         paths:
           - path: /
