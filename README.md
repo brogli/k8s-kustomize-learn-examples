@@ -1,7 +1,7 @@
 # k8s + kustomize by example
 
-This showcases the evolution of a simple nginx deployment from a simple docker|podman run command
-up to an app-of-apps deployment with argocd in k3s with Kustomize.
+This showcases the evolution of a simple nginx deployment from a docker|podman run command
+up to a declarative deployment with ArgoCD in k3s with Kustomize.
 
 This way you can enter in the step you're familiar with and then learn how it translates further up.
 
@@ -12,6 +12,7 @@ This way you can enter in the step you're familiar with and then learn how it tr
 | [3](3-k8s-manifests/README.md)      | Kubernetes manifests, `kubectl apply`                                   |
 | [4](4-kustomize-overlays/README.md) | kustomize base + staging/prod overlays, `kubectl apply -k`              |
 | [5](5-argocd-manual/README.md)      | the step 3 manifests, deployed by Argo CD from an app created in the UI |
+| [6](6-argocd-declarative/README.md) | the same, with the Argo CD Application as a manifest                    |
 
 Everything runs on your local machine: Podman (or Docker) and Compose for steps 1–2,
 [k3s](https://k3s.io/) for step 3 onward.

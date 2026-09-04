@@ -8,7 +8,7 @@ pulls it from this repo on GitHub and applies it.
 ```bash
 kubectl create namespace argocd
 kubectl apply --server-side -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml   # server-side: a CRD is too big for client-side apply
-kubectl apply --server-side -f argocd/             # plain-HTTP UI + ingress on argocd.locl
+kubectl apply --server-side -f argocd/             # plain-HTTP UI + ingress on argocd.nginx-demo.locl
 kubectl -n argocd get pods # watch them starting
 kubectl rollout restart -n argocd deployment/argocd-server
 kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d; echo
@@ -67,3 +67,5 @@ Then remove Argo CD itself:
 kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl delete namespace argocd
 ```
+
+Next: [step 6](../6-argocd-declarative/README.md) — the same, with the Application as a manifest.
