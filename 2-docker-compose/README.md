@@ -2,13 +2,13 @@
 
 The step 1 command, written down as [`docker-compose.yml`](docker-compose.yml).
 
-| Step 1 flag | Compose key |
-| --- | --- |
-| `docker.io/library/nginx:1.27-alpine` | `image` |
-| `--name nginx-demo` | `container_name` |
-| `-p 8080:80` | `ports` |
-| `-v "$PWD/site:…"` | `volumes` (relative to the file) |
-| `-d` | flag on `up`, not in the file |
+| Step 1 flag                           | Compose key                      |
+|---------------------------------------|----------------------------------|
+| `docker.io/library/nginx:1.27-alpine` | `image`                          |
+| `--name nginx-demo`                   | `container_name`                 |
+| `-p 8080:80`                          | `ports`                          |
+| `-v "$PWD/site:…"`                    | `volumes` (relative to the file) |
+| `-d`                                  | flag on `up`, not in the file    |
 
 ## Run
 
