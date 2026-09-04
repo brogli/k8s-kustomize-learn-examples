@@ -1,0 +1,12 @@
+# partial Deployment — only the fields that differ; lists merge by name
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-demo
+spec:
+  template:
+    spec:
+      volumes:
+        - name: content
+          hostPath:
+            path: /tmp/nginx-demo/staging/site

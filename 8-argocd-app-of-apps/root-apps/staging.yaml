@@ -1,0 +1,23 @@
+# Root Application for staging. Its "manifests" are the staging Application in argocd-apps/,
+# so applying this one object makes Argo CD create that one, which deploys nginx.
+# One root app per environment — apply exactly one of these to a cluster.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-staging
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io   # deleting root cascades: child app, then its resources
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/brogli/k8s-kustomize-learn-examples.git
+    targetRevision: HEAD
+    path: 8-argocd-app-of-apps/argocd-apps/overlays/staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd                          # the child Application lives where Argo CD runs
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
