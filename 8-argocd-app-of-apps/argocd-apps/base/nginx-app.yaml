@@ -1,0 +1,21 @@
+# Step 6's Application. Argo CD runs kustomize build itself when the path holds a kustomization.yaml.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-demo
+  namespace: argocd                       # Applications live where Argo CD runs
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io   # deleting the app also deletes what it deployed ("cascade")
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/brogli/k8s-kustomize-learn-examples.git
+    targetRevision: HEAD
+    path: 8-argocd-app-of-apps/workloads/nginx/base   # overlays replace this
+  destination:
+    server: https://kubernetes.default.svc   # the cluster Argo CD runs in
+    namespace: default
+  syncPolicy:
+    automated:
+      selfHeal: true                      # cluster drifts from git → put it back
+      prune: true                         # resource removed from git → remove it from the cluster

@@ -1,8 +1,8 @@
-# Step 6's Application. Argo CD runs kustomize build itself when the path holds a kustomization.yaml.
+# Same shape as the nginx Application, for the second workload.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nginx-demo
+  name: whoami
   namespace: argocd                       # Applications live where Argo CD runs
   finalizers:
     - resources-finalizer.argocd.argoproj.io   # deleting the app also deletes what it deployed ("cascade")
@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/brogli/k8s-kustomize-learn-examples.git
     targetRevision: HEAD
-    path: 8-argocd-app-of-apps/workloads/base   # overlays replace this
+    path: 8-argocd-app-of-apps/workloads/whoami/base   # overlays replace this
   destination:
     server: https://kubernetes.default.svc   # the cluster Argo CD runs in
     namespace: default
