@@ -1,0 +1,13 @@
+# Needed by docker-compose v1 (the standalone Python binary).
+# Compose v2 (`docker compose`) ignores it and warns that it is obsolete — harmless.
+version: "3.8"
+
+services:
+  web:
+    image: docker.io/library/nginx:1.27-alpine
+    container_name: nginx-demo
+    ports:
+      - "8080:80"
+    volumes:
+      - ./site:/usr/share/nginx/html:ro
+    restart: unless-stopped
