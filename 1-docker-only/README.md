@@ -8,11 +8,11 @@ podman run -d --name nginx-demo -p 8080:80 \
   docker.io/library/nginx:1.27-alpine
 ```
 
-| Flag | Meaning |
-| --- | --- |
-| `-d` | run in the background |
-| `--name nginx-demo` | container name |
-| `-p 8080:80` | host port 8080 → container port 80 |
+| Flag                                      | Meaning                                             |
+|-------------------------------------------|-----------------------------------------------------|
+| `-d`                                      | run in the background                               |
+| `--name nginx-demo`                       | container name                                      |
+| `-p 8080:80`                              | host port 8080 → container port 80                  |
 | `-v "$PWD/site:/usr/share/nginx/html:ro"` | mount `site/` over nginx's document root, read-only |
 
 `docker` works the same way.
