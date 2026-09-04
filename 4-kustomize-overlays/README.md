@@ -27,6 +27,7 @@ Same k3s as step 3. Put each overlay's `site/` where its Deployment expects it, 
 both hostnames at your machine in your hosts file:
 
 ```bash
+# Prepare files for the host volumes
 for e in staging prod; do mkdir -p /tmp/nginx-demo/$e && cp -r overlays/$e/site /tmp/nginx-demo/$e/; done
 ```
 
@@ -47,3 +48,5 @@ curl -s http://nginx-demo.locl/
 kubectl delete -k overlays/staging
 kubectl delete -k overlays/prod
 ```
+
+Next: [step 5](../5-argocd-manual/README.md) — the step 3 manifests, deployed by Argo CD.
