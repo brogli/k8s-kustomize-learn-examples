@@ -21,6 +21,7 @@ A `hostPath` volume is a directory on the node — with k3s, your machine. Put `
 where the Deployment expects it:
 
 ```bash
+# Prepare files for the host volume
 mkdir -p /tmp/nginx-demo && cp -r site /tmp/nginx-demo/
 ```
 
