@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ../../base
 
-nameSuffix: -staging              # Application "nginx-demo-staging"
+nameSuffix: -staging              # nginx-demo-staging, whoami-staging
 
 patches:
   - patch: |-
@@ -15,6 +15,17 @@ patches:
         namespace: argocd
       spec:
         source:
-          path: 8-argocd-app-of-apps/workloads/overlays/staging
+          path: 8-argocd-app-of-apps/workloads/nginx/overlays/staging
         destination:
           namespace: nginx-staging
+  - patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: whoami
+        namespace: argocd
+      spec:
+        source:
+          path: 8-argocd-app-of-apps/workloads/whoami/overlays/staging
+        destination:
+          namespace: whoami-staging

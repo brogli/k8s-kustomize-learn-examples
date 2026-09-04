@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ../../base
 
-nameSuffix: -prod              # Application "nginx-demo-prod"
+nameSuffix: -prod              # nginx-demo-prod, whoami-prod
 
 patches:
   - patch: |-
@@ -15,6 +15,17 @@ patches:
         namespace: argocd
       spec:
         source:
-          path: 8-argocd-app-of-apps/workloads/overlays/prod
+          path: 8-argocd-app-of-apps/workloads/nginx/overlays/prod
         destination:
           namespace: nginx-prod
+  - patch: |-
+      apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: whoami
+        namespace: argocd
+      spec:
+        source:
+          path: 8-argocd-app-of-apps/workloads/whoami/overlays/prod
+        destination:
+          namespace: whoami-prod
