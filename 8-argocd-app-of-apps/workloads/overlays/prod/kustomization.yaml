@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+  - namespace.yaml
+
+namespace: nginx-prod        # every resource gets this namespace
+
+replicas:
+  - name: nginx-demo
+    count: 3
+
+patches:
+  - path: deployment-patch.yaml
+  # JSON patch — add a host to the first ingress rule
+  - target:
+      kind: Ingress
+      name: nginx-demo
+    patch: |-
+      - op: add
+        path: /spec/rules/0/host
+        value: nginx-demo.locl
