@@ -50,7 +50,7 @@ curl -s http://nginx-demo.locl/
 Now change something in the cluster by hand and watch Argo CD notice:
 
 ```bash
-kubectl scale deployment/nginx-demo --replicas=1     # app goes OutOfSync; Sync puts it back to 2
+kubectl scale deployment/nginx-demo --replicas=2     # app goes OutOfSync; Sync puts it back to 1
 ```
 
 ## Clean up
