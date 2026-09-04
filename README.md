@@ -13,6 +13,7 @@ This way you can enter in the step you're familiar with and then learn how it tr
 | [4](4-kustomize-overlays/README.md) | kustomize base + staging/prod overlays, `kubectl apply -k`              |
 | [5](5-argocd-manual/README.md)      | the step 3 manifests, deployed by Argo CD from an app created in the UI |
 | [6](6-argocd-declarative/README.md) | the same, with the Argo CD Application as a manifest                    |
+| [7](7-argocd-kustomize/README.md)   | kustomize for the workload and for the Argo CD Applications             |
 
 Everything runs on your local machine: Podman (or Docker) and Compose for steps 1–2,
 [k3s](https://k3s.io/) for step 3 onward.

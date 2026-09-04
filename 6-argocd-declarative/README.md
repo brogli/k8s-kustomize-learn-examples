@@ -62,3 +62,5 @@ Then remove Argo CD itself:
 kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl delete namespace argocd
 ```
+
+Next: [step 7](../7-argocd-kustomize/README.md) — kustomize for the workload and for the Applications.
